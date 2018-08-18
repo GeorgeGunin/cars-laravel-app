@@ -1,0 +1,83 @@
+
+header .logo {
+
+  top:13px;
+  left:15px;
+}
+
+
+.shopping-cart table td.thumb, .wishlist table td.thumb {
+  padding-right: 50px !important;
+  width: 22.4%;
+}
+
+.incr-btn {
+  cursor: pointer;
+}
+
+.btn-file{
+  position:relative;
+  max-width: 203px;
+  max-height: 50px;
+}
+.btn-file .subfile{
+  left: -40px;
+  top:-38px;
+  opacity: 0;
+}
+
+.sidebar{
+  display: block;
+}
+
+.info-tab{
+  margin-top: 30px;
+}
+
+.main {
+  line-height: 2.7;
+}
+.logo #nav-logo{
+  width: 70px
+}
+.ms-slide,.ms-view{
+  height: 600px!important;
+}
+@media (max-width:777px){
+  .ms-slide,.ms-view{
+    height: 300px!important;
+  }
+}
+@media (min-width:1500px)
+{
+  .ms-slide,.ms-view{
+    height: 850px!important;
+  }
+}
+
+
+@media (max-width:992px){
+  .logo #nav-logo{
+    width: 56px;
+  }
+}
+
+.btn-primary-outline {
+  visibility: hidden;
+  background-color: transparent;
+  border-color: #ccc;
+  float: none;
+  cursor: none;
+}
+.btn-primary-outline:hover {
+  background: none;
+  font-weight: 0;
+}
+
+.error_show{
+  border-color: red 1px solid;
+}
+.error{
+  border-color: red 1px solid;
+}
+
