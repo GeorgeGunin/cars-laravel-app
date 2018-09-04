@@ -13,12 +13,10 @@ class PostController extends MainController {
 
   public function postCreatePost(PostRequest $request) {
 
-    if (!empty($request['product_id']) && is_numeric($request['product_id'])) {
+    if (!empty($request['product_id']) && is_numeric($request['product_id'])) 
       Post::saveNew($request);
       return redirect(Session::get('url'));
-    } else {
-      return redirect(Session::get('url'));
-    }
+    
   }
 
   public function postDeletePost($curl, $purl, $id) {

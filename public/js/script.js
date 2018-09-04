@@ -1,8 +1,6 @@
 
 $(document).ready(function(){
-  $('input:text').bind({
-    
-  });
+
   $("#search").autocomplete({
     minLength:3,
     autoFocus:true,
@@ -21,7 +19,6 @@ $('.dest').on('focusout', function () {
 $('.add-cart-btn').on('click', function () {
   var pid = $(this).data('id');
   var curl = $(this).data('curl');
-setTimeout(function(){
   $.ajax({
     url: BASE_URL + 'shop/add-to-cart',
     type: 'GET',
@@ -32,7 +29,7 @@ setTimeout(function(){
       location.reload();
     }
   });
-},1500);
+
   
 });
 

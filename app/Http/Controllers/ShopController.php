@@ -21,24 +21,31 @@ class ShopController extends MainController {
 
   public function category($url) {
     Product::getProducts($url, self::$data);
-    if (self::$data['products'])
-      self::$data['title'] .= self::$data['products'][0]->ctitle;
+    if (!empty(self::$data['products'])){
+    self::$data['title'] .= self::$data['products'][0]->category->ctitle;
+    }
     else
       self::$data['title'] .= $url;
     return view('content.products', self::$data);
   }
 
   public function select($curl, $orderBy, $select) {
+   
     Product::getProducts($curl, self::$data, $select);
-    if (self::$data['products'])
-      self::$data['title'] .= self::$data['products'][0]->ctitle;
-    return view('content.products', self::$data);
+    if (!empty(self::$data['products'])){
+     self::$data['title'] .= self::$data['products'][0]->category->ctitle;
+     return view('content.products', self::$data);
+    }
+    else{
+     
+      self::$data['title'].= $curl;
+      return redirect('content.products');
+    }
   }
 
   public function product(Request $request, $curl, $purl) {
-    
-    Product::getItemModel($purl, self::$data);
-    return view('content.product', self::$data);
+     Product::getItemModel($purl, self::$data);
+     return view('content.product', self::$data);
   }
 
   public function addToCart(Request $request) {

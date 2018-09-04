@@ -1,0 +1,67 @@
+categories
+-----------------------
+
+id -----> for update or delete specific categorie 
+ctitle ----> title for categorie
+carticle -----> article for categorie
+curl -----> if select categorie ? what url will be to over to that page
+cimage -----> images for will be saved on our server , what the name of the image 
+updated_at ------> this is laravel required table (option to disable) when updated
+created_at ------> this is laravel required table (option to disable) when created
+
+products
+------------------------
+id
+categorie_id
+ptitle
+particle
+purl
+price
+pimage
+updated_at
+created_at
+
+users
+--------------------------
+id
+role_id
+name
+email
+password
+roles
+update_at
+created_at
+
+
+users_role
+-------------------------
+uid
+rid
+
+orders
+------------------------------
+id
+user_id
+data
+total
+updated_at
+created_at
+
+menu
+-------------------------------
+id
+link - what is the text of the link in navigation
+url
+mtitle
+update_at
+created_at
+
+content
+-------------------------------
+id
+menu_id
+title
+article
+update_at
+created_at
+

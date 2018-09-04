@@ -81,3 +81,29 @@ header .logo {
   border-color: red 1px solid;
 }
 
+.prod{
+  transition: all .2s ease-in-out;
+}
+.prod:hover{
+  transform: scale(1.1);
+}
+
+.cprod{
+  transition: all .2s ease-in-out
+}
+
+.cprod:hover{
+ transform: scale(1.1);
+ box-shadow: 15px 15px 33px -6px rgba(0,0,0,0.75);
+}
+
+.parent{
+   overflow: hidden;
+}
+.child{
+  transition: all .4s;
+}
+.child:hover{
+  transform: scale(1.2);
+ 
+}

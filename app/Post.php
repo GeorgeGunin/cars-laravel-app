@@ -21,23 +21,14 @@ class Post extends Model {
       $user_post=trim($user_post);
       $product_id = filter_var($_REQUEST['product_id'],FILTER_SANITIZE_STRING);
       $product_id=trim($product_id);
-    $data['product'] = DB::table('products AS p')
-            ->join('categories AS c', 'p.categorie_id', '=', 'c.id')
-            ->where('p.id', '=', $product_id)
-            ->select('p.ptitle', 'p.pimage', 'p.purl', 'c.curl')
-            ->first();
-    $data['user'] = DB::table('users')->where('id', '=', session('user_id'))->select('uimage')->first();
-    $post = new self();
-    $post->body = $user_post;
-    $post->user_id = session('user_id');
-    $post->product_id = $product_id;
-    $post->user_name = session('user_name');
-    $post->product_name = $data['product']->ptitle;
-    $post->pimage = ($data['product']->pimage);
-    $post->u_image = ($data['user']->uimage);
-    $post->curl = ($data['product']->curl);
-    $post->purl = ($data['product']->purl);
+      $post = new self();
+      $post -> body = $user_post;
+      $post -> user_id = session('user_id');
+      $post -> product_id = $product_id; 
+
     $post->save();
+      
+      
     Session::flash('sm', 'post succesfully created!');
   }
   }

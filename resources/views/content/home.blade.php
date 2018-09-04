@@ -36,7 +36,7 @@
      @else
      @foreach($last_products as $l_product)
       <!--Tile-->
-      <div class="col-lg-3 col-md-4 col-sm-6 center-block" style='padding: 10px; width:282px; height: 335px '>
+      <div class="col-lg-3 col-md-4 col-sm-6 center-block prod" style='padding: 10px; width:282px; height: 335px '>
         <div class="tile">
           <div class="badges">
             @if($l_product->quantity == 0)
@@ -100,7 +100,8 @@
             @foreach($posts as $post)
             <div class="post row">
               <div class="col-lg-6 col-sm-6">
-                <a href="{{url('shop').'/'.$post->product->curl.'/'.$post->purl}}"><img src="{{asset('images').'/'.$post->product->pimage}}" alt="1"/></a>
+                
+                <a href="{{url('shop').'/'.$post->product->category->curl.'/'.$post->product->purl}}"><img src="{{asset('images').'/'.$post->product->pimage}}" alt="1"/></a>
               </div>
               <div class="col-lg-6 col-sm-6">
                 <h3><a href="{{url('shop').'/'.$post->product->category->curl.'/'.$post->product->purl}}">{{$post->product->ptitle}}</a></h3>

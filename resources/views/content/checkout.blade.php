@@ -34,7 +34,7 @@
             
             <span class="incr-btn"  class="hidden"  data-id="{{$item['id']}}" data-op="minus">-</span>
             <input name="quantity" class="quantity form-control" type="text" value="{{$item['quantity']}}">
-            <span @if($item['attributes']['quantity'] - $item['quantity'])class="incr-btn" @else class="hidden" @endif data-id="{{$item['id']}}" data-op="plus">+</span>
+            <span @if(($item['attributes']['quantity'] - $item['quantity'])>0)class="incr-btn" @else class="hidden" @endif data-id="{{$item['id']}}" data-op="plus">+</span>
           </td>
           <td class="total">{{$item['price']*$item['quantity']}} $</td>
           <td class="delete"><a href="{{url('shop'.'/'.'item-delete'.'?id='.$item['id'])}}"><i class="icon-delete"></i></a></td>

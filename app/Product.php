@@ -12,13 +12,15 @@ use DB,
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model {
-  public function category(){
-    return $this->belongsTo(Categorie::class,'categorie_id');
+
+  public function category() {
+    return $this->belongsTo(Categorie::class, 'categorie_id');
   }
-  public function posts(){
+
+  public function posts() {
     return $this->hasMany(Post::class);
   }
-  
+
   public static function getAllNew(&$data) {
     $products = [];
     $products = DB::table('products AS p')
@@ -34,43 +36,32 @@ class Product extends Model {
   }
 
   public static function getProducts($url, &$data, $select = '') {
+
     $order = 'ASC';
     if ($select && $select == 'high-to-low')
       $order = 'DESC';
+    $products = self::with('category:id,curl,ctitle')->whereHas('category', function($query) use($url) {
 
-    $products = DB::table('categories AS c')
-            ->join('products AS p', 'c.id', '=', 'p.categorie_id')
-            ->where('c.curl', '=', $url)->select('p.*', 'c.curl', 'c.ctitle')
-            ->orderBy('p.price', $order)
-            ->get();
-    if ($products)
-      $data['products'] = $products->toArray();
+              $query->where('curl', $url);
+            })->orderBy('price', $order)->get();
+
+    if ($products->count() > 0) {
+      
+      $data['products'] = $products;
+    }
     $data['all_products'] = Product::all()->toArray();
   }
 
-//  public static function getItem($purl, &$data) {
-//
-//    $data['item'] = DB::table('products AS p')
-//            ->join('categories AS c', 'p.categorie_id', '=', 'c.id')
-//            ->where('purl', $purl)
-//            ->select('p.*', 'c.curl', 'c.ctitle')
-//            ->first();
-//    if ($data['item']) {
-//      $data['title'] .= $data['item']->ptitle;
-//    }
-//  }
-  
-  public static function   getItemModel($purl, &$data){
-    
-    $data['item'] = self::where('purl',$purl)->with('category:id,curl,ctitle')->first();
+  public static function getItemModel($purl, &$data) {
+
+    $data['item'] = self::where('purl', $purl)->with('category:id,curl,ctitle')->first();
     if ($data['item']) {
       $data['title'] .= $data['item']->ptitle;
-    }
       $data['item']->posts = $data['item']->posts()->with('user')->paginate(2);
+    }
   }
 
-
-    public static function addToCart($pid,$curl) {
+  public static function addToCart($pid, $curl) {
 
     if (!empty($pid) && is_numeric($pid)) {
 
@@ -191,15 +182,21 @@ class Product extends Model {
 
   public static function searchProduct() {
     $res = [];
-    $term = filter_var(Input::get('term'),FILTER_SANITIZE_STRING);
+    $term = filter_var(Input::get('term'), FILTER_SANITIZE_STRING);
     $term = trim($term);
     $term = Str::lower($term);
-    $data = DB::table('products')
+    $data = self::where('ptitle', 'LIKE', '%' . $term . '%')
                     ->distinct()
                     ->select('ptitle')
-                    ->where('ptitle', 'LIKE','%'. $term . '%')
                     ->groupBy('ptitle')
                     ->take(10)->get();
+
+//    $data = DB::table('products')
+//                    ->distinct()
+//                    ->select('ptitle')
+//                    ->where('ptitle', 'LIKE', '%' . $term . '%')
+//                    ->groupBy('ptitle')
+//                    ->take(10)->get();
     foreach ($data as $v) {
       $res[] = array("value" => $v->ptitle);
     }

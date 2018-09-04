@@ -14,13 +14,33 @@
       </div>
     </div>
     @else
+    
+    <div id="example" class="modal " tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{$item->ptitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="{{ asset('images'.'/'.$item->bigimage )}}">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
     <div class="row">
 
       <!--Product Gallery-->
 
       <div class="col-lg-6 col-md-6">
-        <img style="width: 100%; height: auto;" src="{{asset('images'.'/'.$item->pimage)}}" alt="{{$item->ptitle}}.'pic'" />
 
+        <a href="#example"  data-toggle="modal" > <img  style="width: 100%; height: auto;" src="{{asset('images'.'/'.$item->pimage)}}" alt="{{$item->ptitle}}.'pic'" /></a>
         <form id="post-form" style="margin-top: 30px" method="POST" action="{{Request::url().'/feedback'}}">
           @csrf
           <input type='hidden' name='url' value='{{Session::put('url',Request::url())}}'>
@@ -29,7 +49,7 @@
           <div class="form-group">
             <label for="feedback"><b><i>Give your feedback</i></b></label>
             <textarea disabled style="resize: none" rows="5" type="text" class="form-control" name='feedback' id="feedback" placeholder="feedback"></textarea>
-           <span><p><i>for authenticated users only</i></p></span>
+            <span><p><i>for authenticated users only</i></p></span>
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -42,7 +62,7 @@
             <label for="fpost"><b><i>Give your feedback</i></b></label>
             <textarea  style="resize: none" rows="5" type="text" class="form-control" id="fpost" name="fpost" placeholder="feedback"></textarea>
           </div>
-          
+
           <input id="fidpost" class="btn btn-default" type="submit" name="submit" value="Post">
           <span id="errposr" class=" class text-danger ">{{$errors->first('fpost')}}</span>
           @endif
@@ -62,7 +82,7 @@
           @else
           <a class="btn btn-primary btn-sm add-cart-btn disabled" id="addItemToCart"><i class="icon-shopping-cart"></i>@if($item->quantity)In cart @else Out of stock @endif </a>
           @endif
-      
+
           <a class="btn btn-success btn-sm" href="{{url('shop').'/'.'add-to-wishlist'.'?pid='.$item->id.'&curl='.$item->category->curl.'&purl='.$item->purl}}"><i class="icon-heart"></i>Add to wishlist</a>
 
         </div>
@@ -93,7 +113,7 @@
               @endif
             </div>
           </div>
-         @endforeach
+          @endforeach
           {{$item->posts->links()}}
           @endif
         </div>
